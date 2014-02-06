@@ -1,0 +1,8 @@
+.bundle
+/.idea
+/*.iml
+/.idea_modules
+/vendor/bundle
+*.log
+.sass-cache
+/tmp
