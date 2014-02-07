@@ -66,9 +66,6 @@ post '/login' do
 end
 
 get '/login/:token' do |token|
-  session[:id] = '003d000001ctwKdAAI'
-  redirect to '/app'
-
   client = Force.new
   contact_token = client.query("select Id, UsedAt__c, CreatedDate, Contact__r.Id from ContactLogin__c where Name = '#{quote token}' limit 1").first
   return 403 if contact_token.nil?
