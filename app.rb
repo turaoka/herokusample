@@ -54,7 +54,7 @@ post '/login' do
   client = Force.new
   contact = client.query("select Id from Contact where Email = '#{quote mail}' limit 1").first
   id = if contact.nil? then
-         client.create! 'Contact', Email: mail
+         client.create! 'Contact', Email: mail, LastName: 'Newbie'
        else
          contact.Id
        end
