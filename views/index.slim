@@ -7,7 +7,7 @@
     .body
       i.fa.fa-frown-o.fa-4x
       .message Error
-  .hud ng-show="success"
+  .hud ng-show="success" ng-click="success = false"
     .body
       i.fa.fa-check.fa-4x
       .message Sign in with link in email
@@ -16,8 +16,6 @@
     .form-group
       input.form-control.input-lg type="email" ng-model="mail" ng-disabled="loading || done" placeholder="Mail Address"
     .form-group
-      button.btn.btn-primary.btn-block.btn-lg ng-disabled="loading || done"
-        i.fa.fa-envelope-o ng-hide="loading || done"
-        i.fa.fa-spin.fa-spinner ng-show="loading"
-        i.fa.fa-check ng-show="done"
-        span< Receive an email
+      button.btn.btn-primary.btn-block.btn-lg ng-disabled="loading"
+        i.fa.fa-envelope-o>
+        | Receive an email
