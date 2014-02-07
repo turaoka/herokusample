@@ -53,10 +53,14 @@ post '/login' do
 
   client = Force.new
   contact = client.query("select Id from Contact where Email = '#{quote mail}' limit 1").first
-  return 403 if contact.nil?
+  id = if contact.nil? then
+         client.create! 'Contact', Email: mail
+       else
+         contact.Id
+       end
 
   uuid = SecureRandom.uuid
-  client.create! 'ContactLogin__c', Name: uuid, Contact__c: contact.Id
+  client.create! 'ContactLogin__c', Name: uuid, Contact__c: id
 
   'ok'
 end
