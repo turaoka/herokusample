@@ -1,0 +1,13 @@
+source 'https://rubygems.org'
+ruby '2.0.0'
+
+gem 'sinatra'
+gem 'slim'
+gem 'sass'
+gem 'coffee-script'
+gem 'sinatra-contrib'
+gem 'dotenv'
+gem 'force'
+gem 'hashie'
+gem 'thin'
+gem 'foreman'

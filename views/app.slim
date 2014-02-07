@@ -1,0 +1,103 @@
+nav.navbar.navbar-default.navbar-static-top
+  .container
+    .navbar-header
+      .navbar-brand Sample
+.container ng-controller="ApplicationController" ng-init="init()"
+  .hud ng-show="loading"
+    .body
+      i.fa.fa-spin.fa-spinner.fa-4x
+      .message Loading...
+  .hud ng-show="error" ng-click="error = false"
+    .body
+      i.fa.fa-frown-o.fa-4x
+      .message Error
+  .row
+    .col-lg-4.col-md-4
+      form
+        .form-group
+          label.control-label Name
+          input.form-control readonly=true ng-model="contact.Name"
+        .form-group
+          label.control-label FirstName
+          input.form-control ng-model="contact.FirstName"
+        .form-group
+          label.control-label LastName
+          input.form-control ng-model="contact.LastName"
+        .form-group
+          label.control-label Email
+          input.form-control readonly=true ng-model="contact.Email"
+        .form-group
+          label.control-label Text
+          input.form-control ng-model="contact.Text__c" name="Text__c"
+        .form-group
+          label.control-label Number
+          input.form-control ng-model="contact.Number__c" name="Number__c" pattern="[0-9]+"
+        .form-group
+          label.control-label Picklist
+          select.form-control ng-model="contact.Picklist__c" name="Picklist__c"
+            - @picklist_values.each do |e|
+              option value=e.value = e.label
+        .checkbox
+          label
+            input type="checkbox" ng-model="contact.Bool__c"
+            | Bool
+        .form-group
+          button.btn.btn-primary ng-click="save_contact()"
+            i.fa.fa-save
+            span< Save
+    .col-lg-8.col-md-8
+      table.table
+        thead
+          tr
+            th Name
+            th Number__c
+            th Text__c
+            th LastModifiedDate
+            th
+        tbody
+          tr ng-repeat="e in contact_items"
+            td
+              | {{e.Name}}
+            td
+              | {{e.Number__c}}
+            td
+              | {{e.Text__c}}
+            td
+              | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
+            td.text-right
+              button.btn.btn-primary.btn-xs> ng-click="edit(e)"
+                i.fa.fa-edit>
+                | Edit
+              button.btn.btn-danger.btn-xs ng-click="delete(e)"
+                i.fa.fa-trash-o>
+                | Remove
+      .form-group
+        button.btn.btn-primary ng-click="edit({})"
+          i.fa.fa-plus>
+          | Add
+
+  #modal.modal
+    .modal-dialog
+      .modal-content
+        form ng-submit="finish_editing()"
+          .modal-header
+            h1.modal-title ng-show="editing.work.Id" Edit
+            h1.modal-title ng-show="!editing.work.Id" Create
+          .modal-body
+            .form-group
+              label.control-label Name
+              input.form-control ng-model="editing.work.Name"
+            .form-group
+              label.control-label Number
+              input.form-control ng-model="editing.work.Number__c" pattern="[0-9]+"
+            .form-group
+              label.control-label Text
+              input.form-control ng-model="editing.work.Text__c"
+            .form-group
+              label.control-label LastModifiedDate
+              input.form-control ng-value="editing.work.LastModifiedDate | date:'yyyy-MM-dd HH:mm'" readonly=true
+          .modal-footer
+            button.btn.btn-primary
+              i.fa.fa-check>
+              | Apply
+            button.btn.btn-default data-dismiss="modal" type="button" Discard

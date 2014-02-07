@@ -6,3 +6,4 @@
 *.log
 .sass-cache
 /tmp
+.env
