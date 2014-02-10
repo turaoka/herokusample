@@ -73,7 +73,7 @@ get '/login/:token' do |token|
     return redirect to '/'
   end
 
-  client.update 'ContactLogin__c', Id: contact_token.Id, UsedAt__c: Time.now.utc.iso8601
+  client.update! 'ContactLogin__c', Id: contact_token.Id, UsedAt__c: Time.now.utc.iso8601
   session.destroy
   session[:id] = contact_token.Contact__r.Id
 
