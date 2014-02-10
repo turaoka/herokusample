@@ -44,37 +44,51 @@ nav.navbar.navbar-default.navbar-static-top
         .form-group
           button.btn.btn-primary ng-click="save_contact()"
             i.fa.fa-save
-            span< Save
+            span Save
     .col-lg-8.col-md-8
       table.table
         thead
           tr
-            th Name
-            th Number
-            th Text
-            th LastModifiedDate
             th
+              .hidden-xs Name
+              .visible-xs.text-muted ContactItem
+            th.hidden-xs Text
+            th.hidden-xs Number
+            th.hidden-xs LastModifiedDate
+            th.hidden-xs
         tbody
           tr ng-repeat="e in contact_items"
             td
-              | {{e.Name}}
-            td
-              | {{e.Number__c}}
-            td
+              .text-nowrap.visible-xs.pull-right
+                button.btn.btn-primary.btn-xs> ng-click="edit(e)"
+                  i.fa.fa-edit
+                button.btn.btn-danger.btn-xs ng-click="delete(e)"
+                  i.fa.fa-trash-o
+              h5
+                | {{e.Name}}
+              .visible-xs.text-muted.clearfix
+                | {{e.Text__c}}
+              .visible-xs.text-muted.pull-right
+                | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
+              .visible-xs
+                | {{e.Number__c}}
+            td.hidden-xs
               | {{e.Text__c}}
-            td
+            td.hidden-xs
+              | {{e.Number__c}}
+            td.hidden-xs
               | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
-            td.text-right
+            td.text-nowrap.text-right.hidden-xs
               button.btn.btn-primary.btn-xs> ng-click="edit(e)"
-                i.fa.fa-edit>
-                | Edit
+                i.fa.fa-edit
+                span Edit
               button.btn.btn-danger.btn-xs ng-click="delete(e)"
-                i.fa.fa-trash-o>
-                | Remove
+                i.fa.fa-trash-o
+                span Remove
       .form-group
         button.btn.btn-primary ng-click="edit({})"
-          i.fa.fa-plus>
-          | Add
+          i.fa.fa-plus
+          span Add
 
   #modal.modal
     .modal-dialog
@@ -88,16 +102,16 @@ nav.navbar.navbar-default.navbar-static-top
               label.control-label Name
               input.form-control ng-model="editing.work.Name"
             .form-group
-              label.control-label Number
-              input.form-control ng-model="editing.work.Number__c" pattern="[0-9]+"
-            .form-group
               label.control-label Text
               input.form-control ng-model="editing.work.Text__c"
+            .form-group
+              label.control-label Number
+              input.form-control ng-model="editing.work.Number__c" pattern="[0-9]+"
             .form-group
               label.control-label LastModifiedDate
               input.form-control ng-value="editing.work.LastModifiedDate | date:'yyyy-MM-dd HH:mm'" readonly=true
           .modal-footer
             button.btn.btn-primary
-              i.fa.fa-check>
-              | Apply
+              i.fa.fa-check
+              span Apply
             button.btn.btn-default data-dismiss="modal" type="button" Discard
