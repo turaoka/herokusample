@@ -33,7 +33,7 @@ module Sinatra
 end
 
 configure do
-  use Rack::Session::Cookie, secret: SecureRandom.random_bytes(100)
+  use Rack::Session::Cookie, secret: ENV['RACK_SESSION_SECRET'] || SecureRandom.random_bytes(100)
 end
 
 configure :development do
