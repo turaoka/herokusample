@@ -3,7 +3,7 @@ nav.navbar.navbar-default.navbar-static-top
     .navbar-header
       .navbar-brand Sample
 .container ng-controller="ApplicationController" ng-init="init()"
-  .hud ng-show="loading"
+  .hud ng-show="loading || contact_loading || contact_item_loading"
     .body
       i.fa.fa-spin.fa-spinner.fa-4x
       .message Loading...

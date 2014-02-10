@@ -19,30 +19,24 @@ app.controller 'ApplicationController', ($scope, $http, $resource, $q) ->
   Contact = $resource '/contact'
   ContactItem__c = $resource '/contact_item/:Id', Id: '@Id'
 
-  initial_loading =
-    contact: $q.defer()
-    contact_items: $q.defer()
-  $q.all(initial_loading.contact, initial_loading.contact_items)
-  .then () ->
-      $scope.loading = false
-  .catch () ->
-      location.href = '/'
-
-  $scope.loading = true
+  $scope.loading = false
+  $scope.contact_loading = true
+  $scope.contact_item_loading = true
+  $scope.editing = {}
 
   $scope.contact = Contact.get()
   $scope.contact.$promise
   .then () ->
-      initial_loading.contact.resolve()
+      $scope.contact_loading = false
   .catch () ->
-      initial_loading.contact.reject()
+      location.href = '/'
 
   $scope.contact_items = ContactItem__c.query()
   $scope.contact_items.$promise
   .then () ->
-      initial_loading.contact_items.resolve()
+      $scope.contact_item_loading = false
   .catch () ->
-      initial_loading.contact_items.reject()
+      location.href = '/'
 
   $scope.save_contact = () ->
     return false if $scope.loading
@@ -51,7 +45,6 @@ app.controller 'ApplicationController', ($scope, $http, $resource, $q) ->
     .finally () ->
         $scope.loading = false
 
-  $scope.editing = {}
   $scope.edit = (e) ->
     $scope.editing =
       work: new ContactItem__c(e)
