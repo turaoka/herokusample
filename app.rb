@@ -68,9 +68,10 @@ end
 get '/login/:token' do |token|
   client = Force.new
   contact_token = client.query("select Id, UsedAt__c, CreatedDate, Contact__r.Id from ContactLogin__c where Name = '#{quote token}' limit 1").first
-  return 403 if contact_token.nil?
-  return 403 unless contact_token.UsedAt__c.nil?
-  return 403 if Time.parse(contact_token.CreatedDate) < Time.now - 24 * 60
+  if contact_token.nil? || !contact_token.UsedAt__c.nil? || Time.parse(contact_token.CreatedDate) < Time.now - 24 * 60 then
+    status = 403
+    return redirect to '/'
+  end
 
   client.update 'ContactLogin__c', Id: contact_token.Id, UsedAt__c: Time.now.utc.iso8601
   session.destroy
