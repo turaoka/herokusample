@@ -145,4 +145,3 @@ delete '/contact_item/:id' do |id|
   client.destroy! 'ContactItem__c', id
   'ok'
 end
-
