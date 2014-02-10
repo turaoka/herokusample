@@ -1,6 +1,6 @@
 app = angular.module 'app', ['ngResource']
 
-window.IndexController = ($scope, $http) ->
+app.controller 'IndexController', ($scope, $http) ->
   $scope.login = () ->
     return false if $scope.done || $scope.loading
     $scope.loading = true
@@ -15,7 +15,7 @@ window.IndexController = ($scope, $http) ->
         $scope.loading = false
     return false
 
-window.ApplicationController = ($scope, $http, $resource, $q) ->
+app.controller 'ApplicationController', ($scope, $http, $resource, $q) ->
   Contact = $resource '/contact'
   ContactItem__c = $resource '/contact_item/:Id', Id: '@Id'
 
