@@ -12,7 +12,7 @@ nav.navbar.navbar-default.navbar-static-top
       i.fa.fa-frown-o.fa-4x
       .message Error
   .row
-    .col-lg-4.col-md-4
+    .col-lg-5.col-md-5.col-sm-5
       form
         .form-group
           label.control-label Name
@@ -45,50 +45,31 @@ nav.navbar.navbar-default.navbar-static-top
           button.btn.btn-primary ng-click="save_contact()"
             i.fa.fa-save
             span Save
-    .col-lg-8.col-md-8
-      table.table
-        thead
-          tr
-            th
-              .hidden-xs Name
-              .visible-xs.text-muted ContactItem
-            th.hidden-xs Text
-            th.hidden-xs Number
-            th.hidden-xs LastModifiedDate
-            th.hidden-xs
-        tbody
-          tr ng-repeat="e in contact_items"
-            td
-              .text-nowrap.visible-xs.pull-right
-                button.btn.btn-primary.btn-xs> ng-click="edit(e)"
-                  i.fa.fa-edit
-                button.btn.btn-danger.btn-xs ng-click="delete(e)"
-                  i.fa.fa-trash-o
-              h5
-                | {{e.Name}}
-              .visible-xs.text-muted.clearfix
-                | {{e.Text__c}}
-              .visible-xs.text-muted.pull-right
-                | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
-              .visible-xs
-                | {{e.Number__c}}
-            td.hidden-xs
-              | {{e.Text__c}}
-            td.hidden-xs
-              | {{e.Number__c}}
-            td.hidden-xs
-              | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
-            td.text-nowrap.text-right.hidden-xs
-              button.btn.btn-primary.btn-xs> ng-click="edit(e)"
+    .col-lg-7.col-md-7.col-sm-7
+      .panel.panel-default
+        .panel-heading
+          h2.panel-title ContactItem
+        ul.list-group
+          li.list-group-item ng-repeat="e in contact_items"
+            .list-group-item-text.text-nowrap.pull-right
+              a.btn.btn-primary.btn-xs> ng-click="edit(e)"
                 i.fa.fa-edit
-                span Edit
-              button.btn.btn-danger.btn-xs ng-click="delete(e)"
+                span.hidden-xs Edit
+              a.btn.btn-danger.btn-xs ng-click="delete(e)"
                 i.fa.fa-trash-o
-                span Remove
-      .form-group
-        button.btn.btn-primary ng-click="edit({})"
-          i.fa.fa-plus
-          span Add
+                span.hidden-xs Delete
+            h5.list-group-item-heading
+              | {{e.Name}}
+            .list-group-item-text.text-muted.clearfix
+              | {{e.Text__c}}
+            .list-group-item-text.text-muted.pull-right
+              | {{e.LastModifiedDate | date:'yyyy-MM-dd HH:mm'}}
+            .list-group-item-text
+              | {{e.Number__c}}
+        .panel-footer
+          a.btn.btn-primary ng-click="edit({})"
+            i.fa.fa-plus
+            span Add
 
   #modal.modal
     .modal-dialog
@@ -114,4 +95,4 @@ nav.navbar.navbar-default.navbar-static-top
             button.btn.btn-primary
               i.fa.fa-check
               span Apply
-            button.btn.btn-default data-dismiss="modal" type="button" Discard
+            a.btn.btn-default data-dismiss="modal" Discard
