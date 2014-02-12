@@ -11,25 +11,20 @@ require 'hashie'
 
 module Sinatra
   module SOQLHelper
-    module Methods
-      def quote(text, like: false)
-        if like then
-          text.to_s.gsub settings.quote_like_regex, settings.quote_replacement
-        else
-          text.to_s.gsub settings.quote_regex, settings.quote_replacement
-        end
+    REGEX = /[\n\r\t\b\f"'\\]/
+    LIKE_REGEX = /[\n\r\t\b\f"'\\%_]/
+    REPLACEMENT = {"\n" => '\n', "\r" => '\r', "\t" => '\t', "\b" => '\b', "\f" => '\f',
+                   '"' => '\"', '\'' => '\\\'', '\\' => '\\\\'}
+
+    def quote(text, like: false)
+      if like then
+        text.to_s.gsub LIKE_REGEX, REPLACEMENT
+      else
+        text.to_s.gsub REGEX, REPLACEMENT
       end
     end
-
-    def self.registered(app)
-      app.helpers SOQLHelper::Methods
-      app.set :quote_regex, /[\n\r\t\b\f"'\\]/
-      app.set :quote_like_regex, /[\n\r\t\b\f"'\\%_]/
-      app.set :quote_replacement, {"\n" => '\n', "\r" => '\r', "\t" => '\t', "\b" => '\b', "\f" => '\f',
-                                   '"' => '\"', '\'' => '\\\'', '\\' => '\\\\'}
-    end
   end
-  register SOQLHelper
+  helpers SOQLHelper
 end
 
 configure :development do
