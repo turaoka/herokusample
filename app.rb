@@ -32,14 +32,14 @@ module Sinatra
   register SOQLHelper
 end
 
-configure do
-  use Rack::Session::Cookie, secret: ENV['RACK_SESSION_SECRET'] || SecureRandom.random_bytes(100)
-end
-
 configure :development do
   require 'dotenv'
   Dotenv.load
   set :bind, '0.0.0.0'
+end
+
+configure do
+  use Rack::Session::Cookie, secret: ENV['RACK_SESSION_SECRET'] || SecureRandom.random_bytes(100)
 end
 
 get '/' do
